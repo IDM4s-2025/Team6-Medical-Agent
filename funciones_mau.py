@@ -175,3 +175,7 @@ class MedicalAgent(KnowledgeEngine):
         
         print("You may have blepharitis. Please seek medical attention.")
         self.modify(self.facts[1], start='True')
+
+engine = MedicalAgent()
+engine.reset()
+engine.run()
