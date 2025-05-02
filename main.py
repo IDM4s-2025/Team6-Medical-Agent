@@ -189,6 +189,218 @@ class MedicalAgent(KnowledgeEngine):
         print("You may have Cataracts. Please seek medical attention.")
         self.modify(self.facts[1], start='True')
     
+    @Rule(Fact(start="False"),
+          NOT(Fact(eye_redness=W())),
+          Fact(blurred_vision = 'no'),
+          salience = 88)
+    def Q7(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is no, 
+        this function asks the user if they have eye redness and stores the answer in a fact.
+        """
+        self.declare(Fact(eye_redness=input("Do you have eye redness? (yes/no) ")))
+
+    @Rule(Fact(start="False"),
+          NOT(Fact(eye_pain=W())),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          salience = 87)
+    def Q8(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no" and on Q7 is "yes",
+        this function asks the user if they have experienced eye pain and stores the answer in a fact.
+        """
+        self.declare(Fact(eye_pain=input("Do you experience eye pain? (yes/no) ")))
+
+    @Rule(Fact(start="False"),
+          NOT(Fact(photophobia=W())),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          Fact(eye_pain = 'yes'),
+          salience = 86)
+    def Q9(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no", on Q7 is "yes" and on Q8 is "yes",
+        this function asks the user if they are sensitive to light and stores the answer in a fact.
+        """
+        self.declare(Fact(photophobia=input("Are you sensitive to light (photophobia)? (yes/no) ")))
+
+    @Rule(Fact(start='False'),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          Fact(eye_pain = 'yes'),
+          Fact(photophobia = 'yes'),
+          salience= 85)
+    def print_uveitis2(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no", on Q7 is "yes", on Q8 is "yes" and on Q9 is "yes",
+        this function informs the user that they may have uveitis and advises them to seek medical attention.
+        """
+        print("You may have uveitis. Please seek medical attention.")
+        self.modify(self.facts[1], start='True')
+    
+    @Rule(Fact(start="False"),
+          NOT(Fact(nausea=W())),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          Fact(eye_pain = 'yes'),
+          Fact(photophobia = 'no'),
+          salience = 84)
+    def Q10(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no", on Q7 is "yes", on Q8 is "yes" and on Q9 is "no",
+        this function asks the user if they have experienced nausea of vomiting and stores the answer in a fact.
+        """
+        self.declare(Fact(nausea=input("Do you experience nausea or vomiting? (yes/no) ")))
+    
+    @Rule(Fact(start='False'),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          Fact(eye_pain = 'yes'),
+          Fact(photophobia = 'no'),
+          Fact(nausea = 'yes'),
+          salience= 83)
+    def print_glaucoma(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no", on Q7 is "yes", on Q8 is "yes", on Q9 is "no" and on Q10 is "yes",
+        this function informs the user that they may have glaucoma and advises them to seek medical attention.
+        """
+        print("You may have glaucoma. Please seek medical attention.")
+        self.modify(self.facts[1], start='True')
+    
+    @Rule(Fact(start='False'),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          Fact(eye_pain = 'yes'),
+          Fact(photophobia = 'no'),
+          Fact(nausea = 'no'),
+          salience= 82)
+    def print_stye(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no", on Q7 is "yes", on Q8 is "yes", on Q9 is "no" and on Q10 is "no",
+        this function informs the user that they may have a stye and advises them to seek medical attention.
+        """
+        print("You may have a stye. Please seek medical attention.")
+        self.modify(self.facts[1], start='True')
+    
+    @Rule(Fact(start="False"),
+          NOT(Fact(discharge=W())),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          Fact(eye_pain = 'no'),
+          salience = 81)
+    def Q11(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no", on Q7 is "yes" and on Q8 is "no",
+        this function asks the user if they have discharge from their eye and stores the answer in a fact.
+        """
+        self.declare(Fact(discharge=input("Do you have discharge from your eye? (yes/no) ")))
+    
+    @Rule(Fact(start='False'),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          Fact(eye_pain = 'no'),
+          Fact(discharge = 'yes'),
+          salience= 80)
+    def print_conjuntivitis(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no", on Q7 is "yes", on Q8 is "no" and on Q11 is "yes",
+        this function informs the user that they may have conjuntivitis and advises them to seek medical attention.
+        """
+        print("You may have conjuntivitis. Please seek medical attention.")
+        self.modify(self.facts[1], start='True')
+    
+    @Rule(Fact(start='False'),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'yes'),
+          Fact(eye_pain = 'no'),
+          Fact(discharge = 'no'),
+          salience= 79)
+    def print_blepharitis(self):
+        """
+        Mauricio Loera
+        If the answer on Q1 is "no", on Q7 is "yes", on Q8 is "no" and on Q11 is "no",
+        this function informs the user that they may have blepharitis and advises them to seek medical attention.
+        """
+        print("You may have blepharitis. Please seek medical attention.")
+        self.modify(self.facts[1], start='True')
+    
+    @Rule(Fact(start="False"),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'no'),
+          NOT(Fact(double_vision=W())),
+          salience=78)
+    def Q12(self):
+        """
+        Elian Alejandro López de Alba
+        This function asks the user if they experience double vision and stores the answer in a fact.
+        """
+        self.declare(Fact(double_vision=input("Do you experience double vision? (yes/no) ")))
+    
+    @Rule(Fact(start='False'),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'no'),
+          Fact(double_vision='yes'),
+          salience=77)
+    def print_strabismus(self):
+        """
+        Elian Alejandro López de Alba
+        If the user experiences double vision, this function suggests a possible case of Strabismus/Diplopia.
+        """
+        print("You may have Strabismus or Diplopia. Please consult an ophthalmologist.")
+        self.modify(self.facts[1], start='True')
+
+    @Rule(Fact(start="False"),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'no'),
+          Fact(double_vision='no'),
+          NOT(Fact(gritty_feeling=W())),
+          salience=76)
+    def Q13(self):
+        """
+        Elian Alejandro López de Alba
+        This function asks the user if they have a gritty feeling in their eye and stores the answer in a fact.
+        """
+        self.declare(Fact(gritty_feeling=input("Do you have a gritty feeling in your eye? (yes/no) ")))
+    
+    
+    @Rule(Fact(start='False'),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'no'),
+          Fact(double_vision='no'),
+          Fact(gritty_feeling='yes'),
+          salience=75)
+    def print_dry_eye(self):
+        """
+        Elian Alejandro López de Alba
+        If the user hasn't both eye redness and a gritty feeling in the eye, this function suggests a possible case of Dry Eye Syndrome.
+        """
+        print("You may have Dry Eye Syndrome. Please seek medical attention.")
+        self.modify(self.facts[1], start='True')
+    
+    @Rule(Fact(start='False'),
+          Fact(blurred_vision = 'no'),
+          Fact(eye_redness = 'no'),
+          Fact(double_vision='no'),
+          Fact(gritty_feeling='no'),
+          salience=74)
+    def print_amblyopia(self):
+        """
+        Elian Alejandro López de Alba
+        If the user hasn't both eye redness and a doesn't have a gritty feeling in the eye, this function suggests a possible case of Amblyopia.
+        """
+        print("You may have Amblyopia. Please seek medical attention.")
+        self.modify(self.facts[1], start='True')
+    
     @Rule(Fact(start='True'),
           Fact(greetings=MATCH.greetings))
     def print_goodbye(self, greetings):
